@@ -39,4 +39,9 @@ You are working for a social media website, they need to build functionality to 
    - Create function to house fetch and apply async to function
    - Apply await to fetch
 
+## Version Control and Maintenance
+
+- This Git repository is the source of truth for the lab instructions, example application, and tests. Commit related changes with clear messages so they can be reviewed and reverted when needed.
+- Review the instructions, API behavior, implementation, and tests periodically, and update them when JavaScript practices or dependencies change. Run `npm test` when modifying the application.
+- Keep lab documentation, example code, and solutions together in this repository so learners can find the materials in one place.
 

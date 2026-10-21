@@ -15,6 +15,15 @@ const { code: transformedScript } = babel.transformFileSync(
   { presets: ['@babel/preset-env'] }
 );
 
+async function waitForPosts() {
+  const deadline = Date.now() + 4000;
+  while (Date.now() < deadline) {
+    if (document.querySelector('#post-list li')) return;
+    await new Promise(resolve => setTimeout(resolve, 25));
+  }
+  throw new Error('Posts were not loaded within 4 seconds');
+}
+
 // Initialize JSDOM
 const dom = new JSDOM(html, {
   runScripts: "dangerously",
@@ -42,13 +51,14 @@ global.XMLHttpRequest = dom.window.XMLHttpRequest;
 // Sample test suite for JavaScript event handling
 describe('Asynchronous Fetching ', () => {
   it('should fetch to external api and add information to page', async() => {
-    await new Promise(resolve => setTimeout(resolve, 200)); 
+    await waitForPosts();
     let postDisplay = document.querySelector("#post-list")
     expect(postDisplay.innerHTML).to.include('sunt aut')
+    expect(postDisplay.querySelectorAll('li')).to.have.length(100)
     
   })
   it('should create an h1 and p element to add', async() => {
-    await new Promise(resolve => setTimeout(resolve, 200)); 
+    await waitForPosts();
     let h1 = document.querySelector("h1")
     let p = document.querySelector("p")
     expect(h1.textContent).to.include("sunt aut facere repellat")
